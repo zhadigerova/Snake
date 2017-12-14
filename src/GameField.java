@@ -49,9 +49,9 @@ public class GameField extends JPanel implements ActionListener{
     }
 
     public void loadImages(){
-        ImageIcon iia = new ImageIcon("apple.png");
+        ImageIcon iia = new ImageIcon("goal.png");
         apple = iia.getImage();
-        ImageIcon iid = new ImageIcon("dot.png");
+        ImageIcon iid = new ImageIcon("dotOfSnake.png");
         dot = iid.getImage();
     }
 
@@ -90,6 +90,20 @@ public class GameField extends JPanel implements ActionListener{
         if (down){
             y[0] += DOT_SIZE;
         }
+
+        // если змейка больше игрового поля
+        if (x[0] > SIZE){
+            x[0] = 0;
+        }
+        if (x[0] < 0){
+            x[0] = SIZE;
+        }
+        if (y[0] > SIZE){
+            y[0] = 0;
+        }
+        if (y[0] < 0){
+            y[0] = SIZE;
+        }
     }
     public void checkApple(){
         //если координаты головы змейки равны координатам яблока
@@ -110,19 +124,7 @@ public class GameField extends JPanel implements ActionListener{
             }
         }
 
-        // если змейка больше игрового поля
-        if (x[0] > SIZE){
-            inGame = false;
-        }
-        if (x[0] < 0){
-            inGame = false;
-        }
-        if (y[0] > SIZE){
-            inGame = false;
-        }
-        if (y[0] < 0){
-            inGame = false;
-        }
+
     }
 
     @Override
@@ -151,14 +153,14 @@ public class GameField extends JPanel implements ActionListener{
                 down = false;
             }
             if (key == KeyEvent.VK_UP && !down){
-                right = false;
                 up = true;
-                down = false;
+                right = false;
+                left = false;
             }
             if (key == KeyEvent.VK_DOWN && !up){
-                right = false;
-                up = false;
                 down = true;
+                right = false;
+                left = false;
             }
 
         }
